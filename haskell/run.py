@@ -5,8 +5,10 @@ import os
 import requests
 import subprocess
 
+inbasedir = "./input"
+
 def load_input(day: int):
-    inpath = f"input/day{day:02d}/input.in"
+    inpath = os.path.join(inbasedir, f"day{day:02d}", "input.in")
 
     if os.path.exists(inpath):
         print("Input file exists")
@@ -36,10 +38,10 @@ def run_prog(day: int, part: int):
 
     subprocess.run(["ghc", srcpath, "-o", outpath])
 
-    indir = os.path.relpath(f"input/day{day:02d}/")
+    indir = os.path.join(inbasedir, f"day{day:02d}")
 
     for file in os.listdir(indir):
-        inpath = os.path.relpath(f"input/day{day:02d}/{file}")
+        inpath = os.path.join(indir, file)
 
         with open(inpath, "r") as f:
             print(f"{inpath}:")
